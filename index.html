@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login Page</title>
+  <style>
+    /* General styles */
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #fbfbfb;
+      margin: 0;
+      padding: 0;
+    }
+    h1{
+      font-size: 40px;
+    }
+    h2{
+      font-size: 30px;
+    }
+    body p {
+      display: flex;
+      margin: 15px;
+      margin-left: 30px;
+      margin-right: 30px;
+    }
+    .fullpage{
+      padding: 15px;
+    }
+    .header2 {
+      display: flex;
+      justify-content: start;
+      align-items: center;
+      width: 100%;
+      height: 48px;
+
+    }
+    .header2 img{
+      margin: 4px;
+      width: 23px;
+      height: 13px;
+    }
+    .header2 p {
+      font-size: small;
+      margin-top:2px;
+      margin-bottom: 2px;
+      }
+    .header3 {
+      
+      align-items: center;
+      justify-content: center;
+      margin: 10px;
+
+    }  
+
+    header {
+      display: flex;
+      justify-content: start;
+      align-items: start;
+      width: 100%;
+      height: 100px; /* Altura del header */
+      background: white; /* Sin color de fondo */
+    }
+
+    header img {
+      width: 35%; /* El logo ocupa todo el header */
+      height: 100%;
+      /* Ajuste del logo sin deformarse */
+    }
+
+    .container {
+      width: 100%;
+      max-width: 400px;
+      margin: 20px auto;
+      background-color: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    .container p {
+      font-size: 15px;
+    }
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    input[type="text"], input[type="password"] {
+      width: 100%;
+      padding: 10px;
+      margin: 5px 0;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+
+    input[type="text"]::placeholder, input[type="password"]::placeholder {
+      color: #888;
+    }
+
+    .keyboard {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-top: 15px;
+    }
+
+    .keyboard button {
+      padding: 20px;
+      font-size: 18px;
+      background-color: #f0f0f0;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .keyboard button:hover {
+      background-color: #ddd;
+    }
+
+    /* Botón "0" al centro */
+    .keyboard .center {
+      grid-column: span 3; /* El "0" ocupa toda la última fila */
+      text-align: center;
+    }
+
+    .error-message {
+      color: red;
+      font-size: 14px;
+      margin-top: 10px;
+    }
+
+    .image-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      margin: 20px;
+      padding: 15px;
+    }
+
+    footer {
+      background-color: #333;
+      color: white;
+      text-align: center;
+      padding: 10px 0;
+      position: fixed;
+
+      width: 100%;
+      bottom: 0;
+    }
+
+    /* Alineación de botones */
+    button[type="submit"] {
+      display: block;
+      width: 100%;
+      padding: 12px;
+      font-size: 16px;
+      background-color: rgb(47, 94, 141);
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      margin-top: 20px;
+    }
+
+    button[type="submit"]:hover {
+      background-color: rgb(244, 10, 10);
+    }
+    .app{
+      display: block;
+      width: 80%;
+      padding: 12px;
+      font-size: 16px;
+      background-color: rgb(47, 94, 141);
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      margin-top: 20px;
+    }
+
+    /* Responsive design */
+    @media (max-width: 768px) {
+      header {
+        height: 150px; /* Menor altura para pantallas pequeñas */
+      }
+
+      .container {
+        padding: 15px;
+        max-width: 90%;
+      }
+
+      .keyboard {
+        grid-template-columns: repeat(3, 1fr); /* Mantener 3 botones por fila */
+      }
+
+      .keyboard button {
+        padding: 15px;
+        font-size: 16px;
+      }
+
+      footer {
+        position: static;
+        padding: 20px 0;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .keyboard button {
+        padding: 12px;
+        font-size: 14px;
+      }
+      
+      header img {
+        width: 100%;
+        height: auto;
+      }
+      
+    }
+  </style>
+</head>
+<body>
+  <div class="header2">
+   <img src="USFlag.webp" alt="">
+   <div class="header3">
+    <p>Un sitio oficial de los estados unidos</p>
+    <a href="https://egov.uscis.gov/es#/"><p>asi es como usted puede verificarlo</p></a>
+  </div>
+   
+  </div>
+
+  <!-- Header con logo -->
+  <header>
+    <img src="logoprinde.png" alt="Company Logo">
+  </header>
+  <div class="fullpage">
+  <p><h1>El Estatus de Caso en Linea</h1></p>
+  <!-- Main Content -->
+  <div class="container">
+    <h2>Verifique el Estatus de su Caso</h2>
+    <p>Utilice esta herramienta para administrar todas sus solicitudes y peticiones.
+     <br><br>
+      El número de recibo es un identificador único de 13 caracteres que se compone de tres letras y 10 números. Omita los guiones ("-") al ingresar un número de recibo. Sin embargo, puede incluir todos los demás caracteres, incluidos los asteriscos ("*"), si aparecen en su notificación como parte del número de recibo. <h5>Cuando se ingresa un número de recibo, el Botón de Verificación de Estado se habilitará y podrá verificar el estado.</h5></p>
+    <form id="loginForm">
+      <div class="form-group">
+        <label for="username">Ingrese su numero de recibo</label><br><br>
+        <input type="text" id="username" name="username" placeholder="EAC1234567890" required>
+      </div>
+      <div class="error-message" id="error-message"></div>
+      
+      <button type="submit">Verifique estatus</button>
+      <p>¿tiene una cuenta? <a href="https://egov.uscis.gov/es/login">Acceda</a></p>
+    <p>¿crear una cuenta? <a href="https://myaccount.uscis.gov/create-account">Inscribirse</a></p>  
+    </form>
+  </div>
+
+    <!-- Image Container -->
+    <div class="image-container">
+      <img src="people3.jpg" alt="Placeholder Image">
+    </div>
+    <h2>Tiempos de
+      Procesamiento de USCIS</h2><br><br>
+    <p>Ver una estimación de cuánto tiempo está tomando USCIS para procesar su solicitud o petición en sus oficinas.</p>
+    <button class="app">visite la pagina </button>
+  </div>
+  <div class="image-container">
+    <img src="people.jpg" alt="Placeholder Image">
+  </div>
+  <h2>Localidades de Oficinas de USCIS</h2><br><br>
+  <p>Encuentre las oficinas locales e internacionales de USCIS y obtenga direcciones a la oficina.</p>
+  <button class="app">visite la pagina </button>
+</div>
+<div class="image-container">
+  <img src="people1.jpg" alt="Placeholder Image">
+</div>
+<h2>Envíe una Consulta de Caso</h2><br><br>
+<p>Envíe su consulta en línea acerca de su caso o solicite otros servicios, como una solicitud de alojamiento, o la manera de corregir un error en su notificación.</p>
+<button class="app">visite la pagina </button>
+</div>
+<div class="image-container">
+  <img src="people2.jpg" alt="Placeholder Image">
+</div>
+<h2>Cambio de Dirección</h2><br><br>
+<p>Le recomendamos que actualice su dirección con USCIS para asegurarse que recibe toda la correspondencia y beneficios de parte de nuestra de manera oportuna y evitar posibles retrasos o denegaciones relacionadas con su caso.
+
+  Visite la página web de Cambio de Dirección para comenzar el proceso.</p>
+<button class="app">visite la pagina </button>
+</div>
+
+</div>
+</div>
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2025 Your Company. All Rights Reserved. Locations  Contact Us Help & Support Browse with Specialist Accessible Privacy Children’s Privacy  Security</p>
+  </footer>
+  
+  <script>
+
+    // Predefined users for validation
+    const users = [
+    { 
+        username: "WAC1221322178", 
+        password: "123456", 
+        fullName: "KEVIN CERRON ROJAS",
+        accountNumber: "123456789", 
+        balance: "1,250.75",
+        savingsBalance: "874-498-136", // Balance de ahorros
+        checkingBalance: "DETENIDO",  // Balance corriente
+        notifications: [
+            "Welcome to your new account, John!",
+            "Your account has been successfully updated."
+        ],
+        transactions: [
+            { date: "2025-01-01", type: "savings", amount: "WAC1221322178" },
+            { date: "2025-01-01", type: "checking", amount: "inicio proceso de residencia"},
+            { date: "2025-01-01", type: "checking", amount: "retenido for falta de solvencia"},
+            
+        ]
+    },
+    { 
+        username: "alice_smith", 
+        password: "789123", 
+        fullName: "Alice Smith",
+        accountNumber: "987654321", 
+        balance: "2,540.60",
+        savingsBalance: "2,000.00", // Balance de ahorros
+        checkingBalance: "540.60",  // Balance corriente
+        notifications: [
+            "Account created successfully!",
+            "Please review your recent transactions."
+        ],
+        transactions: [
+            { date: "2025-01-05", type: "savings", amount: 1000.00 },
+            { date: "2025-01-20", type: "savings", amount: 500.00 },
+            { date: "2025-01-25", type: "savings", amount: 400.00 }
+        ]
+    },
+    { 
+        username: "jane_doe", 
+        password: "qwerty123", 
+        fullName: "Jane Doe",
+        accountNumber: "1122334455", 
+        balance: "3,150.30",
+        savingsBalance: "2,500.00", // Balance de ahorros
+        checkingBalance: "650.30",  // Balance corriente
+        notifications: [
+            "Your account has been successfully activated.",
+            "New promotional offer available for you."
+        ],
+        transactions: [
+            { date: "2025-01-02", type: "savings", amount: 1200.00 },
+            { date: "2025-01-12", type: "savings", amount: 200.00 },
+            { date: "2025-01-18", type: "savings", amount: 800.00 }
+        ]
+    },
+    { 
+        username: "bob_johnson", 
+        password: "password123", 
+        fullName: "Bob Johnson",
+        accountNumber: "2233445566", 
+        balance: "500.00",
+        savingsBalance: "450.00",  // Balance de ahorros
+        checkingBalance: "50.00",   // Balance corriente
+        notifications: [
+            "Your last payment was successful.",
+            "Don't forget to check your monthly statement."
+        ],
+        transactions: [
+            { date: "2025-01-03", type: "savings", amount: 300.00 },
+            { date: "2025-01-10", type: "savings", amount: 100.00 },
+            { date: "2025-01-14", type: "savings", amount: 50.00 }
+        ]
+    },
+    { 
+        username: "mary_williams", 
+        password: "abc123", 
+        fullName: "Mary Williams",
+        accountNumber: "3344556677", 
+        balance: "8,300.75",
+        savingsBalance: "7,500.00", // Balance de ahorros
+        checkingBalance: "800.75",  // Balance corriente
+        notifications: [
+            "Your recent transfer has been processed.",
+            "You are eligible for a new loan offer."
+        ],
+        transactions: [
+            { date: "2025-01-04", type: "savings", amount: 2000.00 },
+            { date: "2025-01-15", type: "savings", amount: 500.00 },
+            { date: "2025-01-22", type: "savings", amount: 1000.00 }
+        ]
+    },
+    { 
+        username: "charles_brown", 
+        password: "charles456", 
+        fullName: "Charles Brown",
+        accountNumber: "4455667788", 
+        balance: "750.40",
+        savingsBalance: "600.00",  // Balance de ahorros
+        checkingBalance: "150.40", // Balance corriente
+        notifications: [
+            "Your account balance is running low.",
+            "A new update is available for your account."
+        ],
+        transactions: [
+            { date: "2025-01-06", type: "savings", amount: 500.00 },
+            { date: "2025-01-12", type: "savings", amount: 150.00 },
+            { date: "2025-01-18", type: "savings", amount: 100.00 }
+        ]
+    },
+    { 
+        username: "susan_clark", 
+        password: "susan789", 
+        fullName: "Susan Clark",
+        accountNumber: "5566778899", 
+        balance: "2,940.00",
+        savingsBalance: "2,500.00", // Balance de ahorros
+        checkingBalance: "440.00",  // Balance corriente
+        notifications: [
+            "Your payment has been received.",
+            "Please update your contact details."
+        ],
+        transactions: [
+            { date: "2025-01-07", type: "savings", amount: 400.00 },
+            { date: "2025-01-14", type: "savings", amount: 200.00 },
+            { date: "2025-01-20", type: "savings", amount: 300.00 }
+        ]
+    },
+    { 
+        username: "michael_martin", 
+        password: "michael321", 
+        fullName: "Michael Martin",
+        accountNumber: "6677889900", 
+        balance: "1,120.50",
+        savingsBalance: "900.00",  // Balance de ahorros
+        checkingBalance: "220.50", // Balance corriente
+        notifications: [
+            "Your monthly payment is due in 3 days.",
+            "Thank you for using our services."
+        ],
+        transactions: [
+            { date: "2025-01-08", type: "savings", amount: 600.00 },
+            { date: "2025-01-15", type: "savings", amount: 150.00 },
+            { date: "2025-01-21", type: "savings", amount: 200.00 }
+        ]
+    },
+    { 
+        username: "emily_davis", 
+        password: "emily654", 
+        fullName: "Emily Davis",
+        accountNumber: "7788990011", 
+        balance: "4,890.10",
+        savingsBalance: "4,200.00", // Balance de ahorros
+        checkingBalance: "690.10",  // Balance corriente
+        notifications: [
+            "Your profile has been successfully updated.",
+            "Reminder: Your bill is due soon."
+        ],
+        transactions: [
+            { date: "2025-01-09", type: "savings", amount: 800.00 },
+            { date: "2025-01-16", type: "savings", amount: 350.00 },
+            { date: "2025-01-23", type: "savings", amount: 400.00 }
+        ]
+    },
+    { 
+        username: "david_taylor", 
+        password: "david987", 
+        fullName: "David Taylor",
+        accountNumber: "8899001122", 
+        balance: "3,620.00",
+        savingsBalance: "3,000.00", // Balance de ahorros
+        checkingBalance: "620.00",  // Balance corriente
+        notifications: [
+            "Your account is now active.",
+            "You have a new credit card offer."
+        ],
+        transactions: [
+            { date: "2025-01-10", type: "savings", amount: 1500.00 },
+            { date: "2025-01-18", type: "savings", amount: 400.00 },
+            { date: "2025-01-24", type: "savings", amount: 500.00 }
+        ]
+    }
+];
+
+  
+    // Form submission handling
+    const form = document.getElementById("loginForm");
+    const usernameField = document.getElementById("username");
+    const errorMessage = document.getElementById("error-message");
+
+    // Function to handle the form submission
+    form.addEventListener("submit", function (event) {
+        event.preventDefault();
+        
+        const username = usernameField.value.trim();
+
+        // Check if user exists and password matches
+        const user = users.find(u => u.username === username );
+
+        if (user) {
+            // Store user data in localStorage
+            const userData = {
+                username: user.username,
+                fullName: user.fullName,
+                accountNumber: user.accountNumber,
+                savingsBalance: user.savingsBalance,
+                checkingBalance:user.checkingBalance,
+                notifications: user.notifications,
+                transactions: user.transactions  // Adding the transactions to the stored data
+            };
+            localStorage.setItem("user", JSON.stringify(userData)); // Store the complete user object
+        
+            // Redirect to the welcome page
+            window.location.href = "welcome.html";
+        } else {
+            errorMessage.textContent = "Your username or password is incorrect. Please try again.";
+        }
+    });
+</script>
+
+  
+  
+</body>
+</html>
