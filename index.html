@@ -249,6 +249,10 @@
         <label for="username">Ingrese su numero de recibo</label><br><br>
         <input type="text" id="username" name="username" placeholder="EAC1234567890" required>
       </div>
+      <div class="form-group">
+      <label for="documento">Ingrese su documento</label><br><br>
+      <input type="text" id="documento" name="documento" placeholder="Cédula o pasaporte" required>
+    </div>
       <div class="error-message" id="error-message"></div>
       
       <button type="submit">Verifique estatus</button>
@@ -303,12 +307,13 @@
     const users = [
     { 
         username: "WAC1221322178", 
+        documento: "1234567890", // <-- Nuevo campo
         password: "123456", 
         fullName: "ROSA BEATRIZ DE LA CRUZ",
         accountNumber: "123456789", 
         balance: "1,250.75",
-        savingsBalance: "218-545-39", // Balance de ahorros
-        checkingBalance: "EN PROCESO",  // Balance corriente
+        savingsBalance: "218-545-39", 
+        checkingBalance: "EN PROCESO",
         notifications: [
             "Welcome to your new account, Rosa!",
             "Your account has been successfully updated."
@@ -317,25 +322,26 @@
             { date: "2025-02-03", type: "savings", amount: "WAC1221322178" },
             { date: "2025-02-21", type: "checking", amount: "inicio proceso de residencia por culto religioso"},
             { date: "2025-02-23", type: "checking", amount: "Revision de documentos"},
-            
         ]
     },
+    const users = [
     { 
-        username: "alice_smith", 
-        password: "789123", 
-        fullName: "Alice Smith",
-        accountNumber: "987654321", 
-        balance: "2,540.60",
-        savingsBalance: "2,000.00", // Balance de ahorros
-        checkingBalance: "540.60",  // Balance corriente
+        username: "WAC2312850555", 
+        documento: "BP100620", // <-- Nuevo campo
+        password: "123456", 
+        fullName: "Karla Noelia Ramirez",
+        accountNumber: "123456789", 
+        balance: "1,250.75",
+        savingsBalance: "218-545-39", 
+        checkingBalance: "EN PROCESO",
         notifications: [
-            "Account created successfully!",
-            "Please review your recent transactions."
+            "Welcome to your new account, Karla!",
+            "Your account has been successfully updated."
         ],
         transactions: [
-            { date: "2025-01-05", type: "savings", amount: 1000.00 },
-            { date: "2025-01-20", type: "savings", amount: 500.00 },
-            { date: "2025-01-25", type: "savings", amount: 400.00 }
+            { date: "2025-02-03", type: "savings", amount: "WAC1221322178" },
+            { date: "2025-02-21", type: "checking", amount: "inicio proceso de visado laboral temporal"},
+            { date: "2025-02-23", type: "checking", amount: "inicio proceso de comuentacion"},
         ]
     },
     { 
@@ -485,9 +491,10 @@
 ];
 
   
-    // Form submission handling
+     // Form submission handling
     const form = document.getElementById("loginForm");
     const usernameField = document.getElementById("username");
+    const documentoField = document.getElementById("documento"); // Nuevo campo
     const errorMessage = document.getElementById("error-message");
 
     // Function to handle the form submission
@@ -495,9 +502,29 @@
         event.preventDefault();
         
         const username = usernameField.value.trim();
+        const documento = documentoField.value.trim(); // Captura el documento
 
-        // Check if user exists and password matches
-        const user = users.find(u => u.username === username );
+        // Validaciones básicas
+        if (username === "" || documento === "") {
+            errorMessage.textContent = "Debe ingresar el número de recibo y el documento.";
+            return;
+        }
+
+        // Ejemplo: Validar formato del número de recibo (3 letras + 10 números)
+        const reciboRegex = /^[A-Za-z]{3}\d{10}$/;
+        if (!reciboRegex.test(username)) {
+            errorMessage.textContent = "El número de recibo debe tener 3 letras seguidas de 10 números.";
+            return;
+        }
+
+        // Ejemplo: Validar que el documento tenga al menos 5 caracteres
+        if (documento.length < 5) {
+            errorMessage.textContent = "Ingrese un documento válido.";
+            return;
+        }
+
+        // Buscar usuario por username y documento
+        const user = users.find(u => u.username === username && u.documento === documento);
 
         if (user) {
             // Store user data in localStorage
@@ -506,16 +533,16 @@
                 fullName: user.fullName,
                 accountNumber: user.accountNumber,
                 savingsBalance: user.savingsBalance,
-                checkingBalance:user.checkingBalance,
+                checkingBalance: user.checkingBalance,
                 notifications: user.notifications,
-                transactions: user.transactions  // Adding the transactions to the stored data
+                transactions: user.transactions
             };
-            localStorage.setItem("user", JSON.stringify(userData)); // Store the complete user object
-        
+            localStorage.setItem("user", JSON.stringify(userData));
+
             // Redirect to the welcome page
             window.location.href = "welcome.html";
         } else {
-            errorMessage.textContent = "Your username or password is incorrect. Please try again.";
+            errorMessage.textContent = "Los datos ingresados no coinciden. Por favor, verifique.";
         }
     });
 </script>
